@@ -50,17 +50,9 @@ files:
     }
   learner_created: false
 feedback_link: https://hyperskill.org/projects/75/stages/416/implement
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #1
-
-    You printed the wrong text! See the example.
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-    Hello, World!
-  time: Tue, 28 Jul 2020 23:07:01 UTC
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/75/stages/416/implement">JetBrains
+    Academy</a>
+  time: Tue, 28 Jul 2020 23:13:04 UTC
 record: -1
