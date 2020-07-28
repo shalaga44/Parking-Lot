@@ -1,0 +1,30 @@
+<h2>Description</h2>
+
+<p>In real life, parking lots vary in size. At this stage, we will get better at making art imitate life. To do this, we will make our program customizable by adding a <code class="java">create</code> command that allows the user to specify the number of spots. For example, the command <code class="java">create 3</code> makes a parking lot with three spots. The number of spots should be positive. The program output should be the following: <code class="java">Created a parking lot with 3 spots.</code></p>
+
+<p>Other commands like <code class="java">park</code><strong> </strong>or <code class="java">leave</code><strong> </strong>should return an error <code class="java">Sorry, a parking lot has not been created.</code> until the user enters the <code class="java">create</code><strong> </strong>command. If the user calls <code class="java">create</code><strong> </strong>again, the previous parking state should be reset.</p>
+
+<p>It is also important to keep track of which spaces are occupied by which cars. For this, add a <code class="java">status</code> command that prints all occupied spots in ascending order. For each spot, it should print the spot number, the car’s plate registration number, and the color of the car, all separated by spaces like the example below. If there are no occupied spots, the program should print: <code class="java">Parking lot is empty.</code></p>
+
+<h2>Example</h2>
+
+<p> The symbol <code class="java">&gt;</code> represents the user input.</p>
+
+<pre><code class="language-no-highlight">&gt; park KA-01-HH-9999 White
+Sorry, a parking lot has not been created.
+&gt; create 3
+Created a parking lot with 3 spots.
+&gt; status
+Parking lot is empty.
+&gt; park KA-01-HH-9999 White
+White car parked in spot 1.
+&gt; park KA-01-HH-3672 Green
+Green car parked in spot 2.
+&gt; park Rs-P-N-21 Red
+Red car parked in spot 3.
+&gt; leave 2
+Spot 2 is free.
+&gt; status
+1 KA-01-HH-9999 White
+3 Rs-P-N-21 Red
+&gt; exit</code></pre>

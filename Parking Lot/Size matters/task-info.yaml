@@ -1,0 +1,182 @@
+type: edu
+custom_name: stage4
+files:
+- name: src/parking/Main.kt
+  visible: true
+  text: |
+    package parking
+
+    fun main() {
+        println("Hello, World!")
+    }
+  learner_created: false
+- name: test/ParkingTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.stage.StageTest;
+    import parking.MainKt;
+
+    public abstract class ParkingTest<T> extends StageTest<T> {
+        public ParkingTest() {
+            super(MainKt.class);
+        }
+    }
+  learner_created: false
+- name: test/ParkingTest.kt
+  visible: false
+  text: |+
+    import org.hyperskill.hstest.testcase.CheckResult
+    import org.hyperskill.hstest.testcase.TestCase
+
+
+    /** Default testCase. */
+    fun <T> testCase(attach: T, input: String) = TestCase<T>().apply {
+        setInput(input)
+        setAttach(attach)
+    }
+
+    open class InputClue(
+            val input: String,
+            /** Do not show correct output and input. */
+            val isPrivate: Boolean = false,
+            /** Hint will be printed even for private tests. */
+            val hint: String? = null
+    ) {
+
+        /** Ciphers [message] or adds a [hint] to the error if it is not null. */
+        fun toFailure(message: String): CheckResult {
+            if (isPrivate) {
+                // Ciphered
+                return CheckResult.wrong("Incorrect output. This is a private test. " + (hint ?: ""))
+            } else {
+                return CheckResult.wrong("$message ${hint ?: ""}")
+            }
+        }
+    }
+
+    fun inputCase(
+            input: String,
+            isPrivate: Boolean = false,
+            hint: String? = null
+    ) = testCase(InputClue(input, isPrivate, hint), input)
+
+    class OutputClue(input: String, val output: String, isPrivate: Boolean, hint: String?)
+        : InputClue(input, isPrivate, hint) {
+
+        fun compareLines(reply: String): CheckResult {
+            val hisLines = reply.trim().lines()
+            val myLines = output.trim().lines()
+
+            myLines.zip(hisLines).withIndex().forEach { (i, pair) ->
+                val (my, his) = pair
+                if (my != his) {
+                    return toFailure("Error in line ${i + 1}: \"$his\" instead of \"$my\".")
+                }
+            }
+            // if all common lines are correct, but sizes are different.
+            if (hisLines.size != myLines.size) {
+                return toFailure("Your output contains ${hisLines.size} " +
+                        "lines instead of ${myLines.size}.")
+            }
+            return CheckResult.correct();
+        }
+    }
+
+    fun outputCase(
+            input: String,
+            output: String,
+            isPrivate: Boolean = false,
+            hint: String? = null
+    ) = testCase(OutputClue(input, output, isPrivate, hint), input)
+
+    /** Trim Starts of all lines and trim empty lines. */
+    fun String.trimAllIndents() = this.lines()
+            .map { it.trimStart() }
+            .dropWhile { it.isBlank() }
+            .dropLastWhile { it.isBlank() }
+            .joinToString("\n")
+
+
+    class Task4Test : ParkingTest<OutputClue>() {
+
+        override fun generate() = listOf(
+                outputCase(
+                        """
+                            park KA-01-HH-9999 White
+                            create 3
+                            status
+                            park KA-01-HH-9999 White
+                            park KA-01-HH-3672 Green
+                            park Rs-P-N-21 Red
+                            leave 2
+                            status
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Sorry, a parking lot has not been created.
+                            Created a parking lot with 3 spots.
+                            Parking lot is empty.
+                            White car parked in spot 1.
+                            Green car parked in spot 2.
+                            Red car parked in spot 3.
+                            Spot 2 is free.
+                            1 KA-01-HH-9999 White
+                            3 Rs-P-N-21 Red
+                """.trimAllIndents(),
+                        hint = "See example 1."),
+                outputCase(
+                        """
+                            park KA-01-HH-9999 White
+                            leave 1
+                            status
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Sorry, a parking lot has not been created.
+                            Sorry, a parking lot has not been created.
+                            Sorry, a parking lot has not been created.
+                """.trimAllIndents(),
+                        true,
+                        hint = "Check commands until the parking is created."),
+                outputCase(
+                        """
+                            create 3
+                            park KA-01-HH-9999 White
+                            park KA-01-HH-9998 Red
+                            status
+                            create 1
+                            status
+                            park KA-01-HH-9999 Black
+                            status
+                            park KA-01-HH-9998 Black
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Created a parking lot with 3 spots.
+                            White car parked in spot 1.
+                            Red car parked in spot 2.
+                            1 KA-01-HH-9999 White
+                            2 KA-01-HH-9998 Red
+                            Created a parking lot with 1 spots.
+                            Parking lot is empty.
+                            Black car parked in spot 1.
+                            1 KA-01-HH-9999 Black
+                            Sorry, the parking lot is full.
+                """.trimAllIndents(),
+                        true,
+                        hint = "Try to recreate the parking.")
+
+
+        )
+
+
+        override fun check(reply: String, clue: OutputClue): CheckResult {
+
+            return clue.compareLines(reply)
+        }
+    }
+
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/75/stages/419/implement
+status: Unchecked
+record: -1

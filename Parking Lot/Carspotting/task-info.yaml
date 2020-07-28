@@ -1,0 +1,198 @@
+type: edu
+custom_name: stage5
+files:
+- name: src/parking/Main.kt
+  visible: true
+  text: |
+    package parking
+
+    fun main() {
+        println("Hello, World!")
+    }
+  learner_created: false
+- name: test/ParkingTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.stage.StageTest;
+    import parking.MainKt;
+
+    public abstract class ParkingTest<T> extends StageTest<T> {
+        public ParkingTest() {
+            super(MainKt.class);
+        }
+    }
+  learner_created: false
+- name: test/ParkingTest.kt
+  visible: false
+  text: |
+    import org.hyperskill.hstest.testcase.CheckResult
+    import org.hyperskill.hstest.testcase.TestCase
+
+
+    /** Default testCase. */
+    fun <T> testCase(attach: T, input: String) = TestCase<T>().apply {
+        setInput(input)
+        setAttach(attach)
+    }
+
+    open class InputClue(
+            val input: String,
+            /** Do not show correct output and input. */
+            val isPrivate: Boolean = false,
+            /** Hint will be printed even for private tests. */
+            val hint: String? = null
+    ) {
+
+        /** Ciphers [message] or adds a [hint] to the error if it is not null. */
+        fun toFailure(message: String): CheckResult {
+            if (isPrivate) {
+                // Ciphered
+                return CheckResult.wrong("Incorrect output." + (hint ?: ""))
+            } else {
+                return CheckResult.wrong("$message ${hint ?: ""}")
+            }
+        }
+    }
+
+
+    class OutputClue(input: String, val output: String, isPrivate: Boolean, hint: String?)
+        : InputClue(input, isPrivate, hint) {
+
+        fun compareLines(reply: String): CheckResult {
+            val hisLines = reply.trim().lines()
+            val myLines = output.trim().lines()
+
+            myLines.zip(hisLines).withIndex().forEach { (i, pair) ->
+                val (my, his) = pair
+                if (my.toLowerCase() != his.toLowerCase()) {
+                    return toFailure("Error in line ${i + 1}: \"$his\" instead of \"$my\".")
+                }
+            }
+            // if all common lines are correct, but sizes are different.
+            if (hisLines.size != myLines.size) {
+                return toFailure("Your output contains ${hisLines.size} " +
+                        "lines instead of ${myLines.size}.")
+            }
+            return CheckResult.correct();
+        }
+    }
+
+    fun outputCase(
+            input: String,
+            output: String,
+            isPrivate: Boolean = false,
+            hint: String? = null
+    ) = testCase(OutputClue(input, output, isPrivate, hint), input)
+
+    /** Trim Starts of all lines and trim empty lines. */
+    fun String.trimAllIndents() = this.lines()
+            .map { it.trimStart() }
+            .dropWhile { it.isBlank() }
+            .dropLastWhile { it.isBlank() }
+            .joinToString("\n")
+
+
+    class Task5Test : ParkingTest<OutputClue>() {
+
+        override fun generate() = listOf(
+                outputCase(
+                        """
+                            spot_by_color yellow
+                            create 4
+                            park KA-01-HH-9999 White
+                            park KA-01-HH-3672 White
+                            park Rs-P-N-21 Red
+                            park Rs-P-N-22 Red
+                            reg_by_color GREEN
+                            reg_by_color WHITE
+                            spot_by_color GREEN
+                            spot_by_color red
+                            spot_by_reg ABC
+                            spot_by_reg KA-01-HH-3672
+                            spot_by_reg Rs-P-N-21
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Sorry, a parking lot has not been created.
+                            Created a parking lot with 4 spots.
+                            White car parked in spot 1.
+                            White car parked in spot 2.
+                            Red car parked in spot 3.
+                            Red car parked in spot 4.
+                            No cars with color GREEN were found.
+                            KA-01-HH-9999, KA-01-HH-3672
+                            No cars with color GREEN were found.
+                            3, 4
+                            No cars with registration number ABC were found.
+                            2
+                            3
+                """.trimAllIndents(),
+                        hint = "See example 1."
+                ),
+                outputCase(
+                        """
+                            spot_by_color yellow
+                            reg_by_color yellow
+                            spot_by_reg yellow
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Sorry, a parking lot has not been created.
+                            Sorry, a parking lot has not been created.
+                            Sorry, a parking lot has not been created.
+                """.trimAllIndents(),
+                        isPrivate = true,
+                        hint = "Check commands until the parking is created."
+                ),
+                outputCase(
+                        """
+                            create 5
+                            park A AA
+                            park B BB
+                            park C BB
+                            park D AA
+                            park E AA
+                            leave 4
+                            reg_by_color aa
+                            reg_by_color bb
+                            reg_by_color zz
+                            spot_by_color aa
+                            spot_by_color bb
+                            spot_by_color zz
+                            spot_by_reg A
+                            spot_by_reg B
+                            spot_by_reg Z
+                            exit
+                        """.trimAllIndents(),
+                        """
+                            Created a parking lot with 5 spots.
+                            AA car parked in spot 1.
+                            BB car parked in spot 2.
+                            BB car parked in spot 3.
+                            AA car parked in spot 4.
+                            AA car parked in spot 5.
+                            Spot 4 is free.
+                            A, E
+                            B, C
+                            No cars with color zz were found.
+                            1, 5
+                            2, 3
+                            No cars with color zz were found.
+                            1
+                            2
+                            No cars with registration number Z were found.
+                """.trimAllIndents(),
+                        isPrivate = true,
+                        hint = "Check the case, when the parking is not full."
+                )
+
+        )
+
+        override fun check(reply: String, clue: OutputClue): CheckResult {
+            return clue.compareLines(reply)
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/75/stages/420/implement
+status: Unchecked
+record: -1

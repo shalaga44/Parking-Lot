@@ -1,0 +1,66 @@
+type: edu
+custom_name: stage1
+files:
+- name: src/parking/Main.kt
+  visible: true
+  text: |
+    package parking
+
+    fun main() {
+        println("Hello, World!")
+    }
+  learner_created: false
+- name: test/ParkingTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
+    import parking.MainKt;
+
+    import java.util.Arrays;
+    import java.util.List;
+
+
+    public class ParkingTest extends StageTest {
+        public ParkingTest() {
+            super(MainKt.class);
+        }
+
+        public List<TestCase> generate() {
+            return Arrays.asList(
+                new TestCase()
+            );
+        }
+
+        public CheckResult check(String reply, Object clue) {
+            String text =
+                "White car has parked.\n" +
+                "Yellow car left the parking lot.\n" +
+                "Green car just parked here.";
+
+            if (!reply.trim().equals(text.trim())) {
+                return CheckResult.wrong(
+                    "You printed the wrong text! " +
+                        "See the example.");
+            } else {
+                return CheckResult.correct();
+            }
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/75/stages/416/implement
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    You printed the wrong text! See the example.
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Hello, World!
+  time: Tue, 28 Jul 2020 23:07:01 UTC
+record: -1

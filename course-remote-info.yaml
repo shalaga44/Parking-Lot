@@ -1,0 +1,118 @@
+hyperskill_project:
+  id: 75
+  ide_files: https://stepik.org/media/attachments/lesson/240918/additional_files.json
+  is_template_based: false
+  use_ide: true
+stages:
+- id: 416
+  step: 6597
+- id: 417
+  step: 6598
+- id: 418
+  step: 6599
+- id: 419
+  step: 6600
+- id: 420
+  step: 6601
+topics:
+  0:
+  - title: Computer programming
+    theory_id: 8739
+  - title: Introduction to Kotlin
+    theory_id: 4350
+  - title: Basic literals
+    theory_id: 4351
+  - title: Overview of the basic program
+    theory_id: 4362
+  - title: Standard output
+    theory_id: 4425
+  1:
+  - title: Units of information
+    theory_id: 6865
+  - title: Intro to computational thinking
+    theory_id: 8742
+  - title: Components of computational thinking
+    theory_id: 8745
+  - title: Values and variables
+    theory_id: 4371
+  - title: Data types
+    theory_id: 4388
+  - title: The classification of basic types
+    theory_id: 4455
+  - title: Coding style conventions
+    theory_id: 4419
+  - title: Naming variables
+    theory_id: 4389
+  - title: Comments
+    theory_id: 4406
+  - title: Arithmetic operations
+    theory_id: 4472
+  - title: Boolean and logical operations
+    theory_id: 4515
+  - title: Invoking functions
+    theory_id: 4575
+  - title: Standard input
+    theory_id: 4445
+  - title: Type conversion
+    theory_id: 4672
+  - title: Type inference
+    theory_id: 9506
+  - title: Integers in action
+    theory_id: 4488
+  - title: Relational operators
+    theory_id: 4525
+  - title: Characters
+    theory_id: 4680
+  - title: Strings
+    theory_id: 4540
+  - title: If expression
+    theory_id: 4625
+  - title: IDE
+    theory_id: 3805
+  - title: IntelliJ IDEA
+    theory_id: 3801
+  - title: IDEA Basics
+    theory_id: 5819
+  - title: EduTools
+    theory_id: 5839
+  2:
+  - title: String templates
+    theory_id: 4547
+  - title: Arrays
+    theory_id: 4564
+  - title: Ranges
+    theory_id: 4633
+  - title: When expression
+    theory_id: 4631
+  - title: Repeating blocks
+    theory_id: 4643
+  - title: For loop and ranges
+    theory_id: 4652
+  - title: For loop and arrays
+    theory_id: 4657
+  - title: While loops
+    theory_id: 4659
+  3:
+  - title: Introduction to OOP
+    theory_id: 3614
+  - title: Declaring functions
+    theory_id: 4580
+  - title: Objects
+    theory_id: 6773
+  - title: Jumps and returns
+    theory_id: 6165
+  - title: Declaring classes
+    theory_id: 6200
+  - title: Constructors
+    theory_id: 6237
+  4:
+  - title: Member functions
+    theory_id: 6364
+  - title: Inheritance
+    theory_id: 7770
+  - title: Overriding functions
+    theory_id: 7884
+  - title: toString()
+    theory_id: 10193
+  - title: Data class
+    theory_id: 8526

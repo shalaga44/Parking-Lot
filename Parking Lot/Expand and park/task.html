@@ -1,0 +1,29 @@
+<h2>Description</h2>
+
+<p>Two spots are not enough for a parking lot, so let's increase the number of parking spaces. We'll jump straight to 20 spaces, numbered from 1 to 20. Initially, all the spots are vacant.</p>
+
+<p>When the user wants to park the car, the program should find an available parking spot with the lowest number.</p>
+
+<p>The user can write commands <code class="java">park</code><strong> </strong>and <code class="java">leave</code><strong> </strong>repeatedly and type <code class="java">exit</code> to end the program.</p>
+
+<p>If the parking lot is full and there's no room, the program should type <code class="java">Sorry, the parking lot is full.</code>.</p>
+
+<p>If there are several available spots for a car, the program should always assign the spot with the lowest number.</p>
+
+<h2>Example</h2>
+
+<p> The symbol <code class="java">&gt;</code> represents the user input. Note that it's not part of the input.</p>
+
+<pre><code class="language-no-highlight">&gt; park KA-01-HH-9999 White
+White car parked in spot 1.
+&gt; park KA-01-HH-3672 Green
+Green car parked in spot 2.
+...
+
+&gt; park Rs-P-N-21 Red
+Sorry, the parking lot is full.
+&gt; leave 1
+Spot 1 is free.
+&gt; park Rs-P-N-21 Red
+Red car parked in spot 1.
+&gt; exit</code></pre>

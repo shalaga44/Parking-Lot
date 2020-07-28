@@ -1,0 +1,41 @@
+<h2>Description</h2>
+
+<p>Now it's time to add some query commands.</p>
+
+<p>The command <code class="java">reg_by_color</code> prints all registration numbers of cars of a particular color, taking color as a parameter. The color may be written in uppercase or lowercase letters. For example, <code class="java">reg_by_color BLACK</code>. The answer should contain registration numbers separated by commas. The order should be the same as in the <code class="java">status</code><strong> </strong>command. If there are no cars of this color, the output should be like this: <code class="java">No cars with color BLACK were found.</code>.</p>
+
+<p>The command <code class="java">spot_by_color</code> is similar to the previous one, but it prints the parking space numbers of all the cars of a particular color.</p>
+
+<p>The command <code class="java">spot_by_reg</code> returns you the number of the spot where a car is located based on its registration number, for example, <code class="java">spot_by_reg KA-01</code>. This command will also return an error message if your car was not found:  <code class="java">No cars with registration number KA-01 were found.</code> For convenience, let's suppose that all car registration numbers are unique.</p>
+
+<h2>Example</h2>
+
+<p>The symbol <code class="java">&gt;</code> represents the user input.</p>
+
+<pre><code class="language-no-highlight">&gt; spot_by_color yellow
+Sorry, a parking lot has not been created.
+&gt; create 4
+Created a parking lot with 4 spots.
+&gt; park KA-01-HH-9999 White
+White car parked in spot 1.
+&gt; park KA-01-HH-3672 White
+White car parked in spot 2.
+&gt; park Rs-P-N-21 Red
+Red car parked in spot 3.
+&gt; park Rs-P-N-22 Red
+Red car parked in spot 4.
+&gt; reg_by_color GREEN
+No cars with color GREEN were found.
+&gt; reg_by_color WHITE
+KA-01-HH-9999, KA-01-HH-3672
+&gt; spot_by_color GREEN
+No cars with color GREEN were found.
+&gt; spot_by_color red
+3, 4
+&gt; spot_by_reg ABC
+No cars with registration number ABC were found.
+&gt; spot_by_reg KA-01-HH-3672
+2
+&gt; spot_by_reg Rs-P-N-21
+3
+&gt; exit</code></pre>

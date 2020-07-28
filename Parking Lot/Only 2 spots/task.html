@@ -1,0 +1,28 @@
+<h2>Description</h2>
+
+<p>At this stage, our minimalistic parking lot has two parking spots. Let's assume that <strong>the first spot is occupied</strong> and the second one is free.</p>
+
+<p>The parking lot should allow the user to park the car. This is implemented using the <code class="java">park</code> command. After the user has entered this command, the registration number and the color of the car should be specified. For example, <code class="java">park KA-01-HH-1234 Blue</code>. The registration number should not contain spaces. The color can be written in either uppercase and lowercase letters.</p>
+
+<p>As the first spot is already taken, the program should allocate the second spot and print: <code class="java">Blue car parked in spot 2.</code> The color should match what the user inputs.</p>
+
+<p>To pick up the car, the user should print the command <code class="java">leave</code> and then the number of the parking spot, for example, <code class="java">leave 1</code>. If there is no car in the given spot, the program should print an error: <code class="java">There is no car in spot 1.</code> Otherwise, it should notify the user that the spot is now available: <code class="java">Spot 1 is free.</code></p>
+
+<h2>Examples</h2>
+
+<p>The symbol <code class="java">&gt;</code> represents the user input. Note that it isn't part of the input.</p>
+
+<p>Example 1:</p>
+
+<pre><code class="language-no-highlight">&gt; park KA-01-HH-1234 Blue
+Blue car parked in spot 2.</code></pre>
+
+<p>Example 2:</p>
+
+<pre><code class="java">&gt; leave 1
+Spot 1 is free.</code></pre>
+
+<p>Example 3:</p>
+
+<pre><code class="language-no-highlight">&gt; leave 2
+There is no car in spot 2.</code></pre>
