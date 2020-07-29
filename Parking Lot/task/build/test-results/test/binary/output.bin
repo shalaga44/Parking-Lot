@@ -1,5 +1,5 @@
 [1;31m
 Start test 1[0m
-White car has parked.
- Yellow car left the parking lot.
-Green car just parked here.
+> > park KA-01-HH-1234 White
+White car parked in spot 2.
+> 

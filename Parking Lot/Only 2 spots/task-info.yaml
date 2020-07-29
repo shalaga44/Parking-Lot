@@ -1,15 +1,6 @@
 type: edu
 custom_name: stage2
 files:
-- name: src/parking/Main.kt
-  visible: true
-  text: |
-    package parking
-
-    fun main() {
-        println("Hello, World!")
-    }
-  learner_created: false
 - name: test/ParkingTest.java
   visible: false
   text: |
@@ -117,6 +108,22 @@ files:
     }
 
   learner_created: false
+- name: src/parking/Main.kt
+  visible: true
+  text: |
+    package parking
+
+    fun main() {
+        println("Hello, World!")
+    }
+  learner_created: false
 feedback_link: https://hyperskill.org/projects/75/stages/417/implement
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: "Exception in test #1\n\nkotlin.KotlinNullPointerException\n\tat parking.ParkingLot.readUserInput(Main.kt:70)\n\
+    \tat parking.MainKt.main(Main.kt:138)\n\tat parking.MainKt.main(Main.kt)\n\nPlease\
+    \ find below the output of your program during this failed test.\nNote that the\
+    \ &#39;&gt;&#39; character indicates the beginning of the input line.\n\n---\n\
+    \n&gt; &gt; park KA-01-HH-1234 White\nWhite car parked in spot 2.\n&gt;"
+  time: Wed, 29 Jul 2020 21:42:34 UTC
+record: 2
