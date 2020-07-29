@@ -2,11 +2,15 @@ package parking
 
 val errorFlag = -1
 
-class Spots(val totalSpots: Int) {
+class Spots {
+    var totalSpots: Int = errorFlag
     var occupiedSpotsCounter = 0
     var spotsList: MutableList<Spot> = mutableListOf()
 
-    init {
+    fun createParkingLotOfSize(size: Int) {
+        occupiedSpotsCounter = 0
+        spotsList = mutableListOf()
+        totalSpots = size
         spotsList.add(Spot(0, Car(), false))
 
         (1..totalSpots).forEach {
@@ -49,6 +53,18 @@ class Spots(val totalSpots: Int) {
         return Spot(spotID, Car(), true)
     }
 
+    fun isEmpty(): Boolean {
+        return occupiedSpotsCounter == 0
+    }
+
+    fun getOccupiedSpots(): List<Spot> {
+        return spotsList.drop(1).filter { !it.isFree }
+    }
+
+    fun isNotCreated(): Boolean {
+        return totalSpots == errorFlag
+    }
+
 
 }
 
@@ -60,12 +76,16 @@ class ParkAction(val car: Car) : Action()
 class LeaveAction(val spotID: Int) : Action()
 object ExitAction : Action()
 class WrongInputAction(val input: String) : Action()
+class CreateSpotsAction(val spots: Int) : Action()
+object StatusAction : Action()
 class ParkingLot {
     var isOpen: Boolean = true
     private val parkFlag = "park"
     private val leaveFlag = "leave"
     private val exitFlag = "exit"
-    private var mySports = Spots(20)
+    private val createFlag = "create"
+    private val statusFlag = "status"
+    private var mySports = Spots()
 
     fun readUserInput() {
         val line = readLine()
@@ -78,10 +98,11 @@ class ParkingLot {
     }
 
     private fun checkOccupiedSpotsThenLeave(spotID: Int) {
-        if (mySports.isOccupiedSpot(spotID))
-            leaveCar(spotID)
-        else
-            printLeaveError(spotID)
+        if (isParkingCreated())
+            if (mySports.isOccupiedSpot(spotID))
+                leaveCar(spotID)
+            else
+                printLeaveError(spotID)
     }
 
     private fun printLeaveError(spotID: Int) {
@@ -98,11 +119,20 @@ class ParkingLot {
     }
 
     private fun checkFreeSpotsThenPark(car: Car) {
-        if (mySports.hasFreeSpot())
-            parkCar(car)
-        else
-            printParkError(car)
+        if (isParkingCreated())
+            if (mySports.hasFreeSpot())
+                parkCar(car)
+            else
+                printParkError(car)
 
+    }
+
+    private fun isParkingCreated(): Boolean {
+        if (mySports.isNotCreated()) {
+            println("Sorry, a parking lot has not been created.")
+            return false
+        }
+        return true
     }
 
     private fun printParkError(car: Car) {
@@ -125,6 +155,8 @@ class ParkingLot {
             parkFlag -> ParkAction(Car(lineList[1], lineList[2]))
             leaveFlag -> LeaveAction(lineList[1].toInt())
             exitFlag -> ExitAction
+            createFlag -> CreateSpotsAction(lineList[1].toInt())
+            statusFlag -> StatusAction
             else -> WrongInputAction(userInput)
         }
     }
@@ -136,7 +168,32 @@ class ParkingLot {
             is LeaveAction -> checkOccupiedSpotsThenLeave(action.spotID)
             is ExitAction -> isOpen = false
             is WrongInputAction -> println("Input Error: ${action.input}")
+            is CreateSpotsAction -> createParkingLot(action.spots)
+            is StatusAction -> getParkingLotStatusThenPrint()
         }
+    }
+
+    private fun createParkingLot(spots: Int) {
+        mySports.createParkingLotOfSize(spots)
+        println("Created a parking lot with $spots spots.")
+
+    }
+
+    private fun getParkingLotStatusThenPrint() {
+        if (isParkingCreated())
+            if (mySports.isEmpty())
+                println("Parking lot is empty.")
+            else
+                printParkingLotStatus()
+    }
+
+    private fun printParkingLotStatus() {
+        mySports.getOccupiedSpots()
+                .forEach { spot ->
+                    println("${spot.id} ${spot.car.carNumber} ${spot.car.color}")
+                }
+
+
     }
 }
 

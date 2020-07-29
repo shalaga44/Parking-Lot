@@ -1,113 +1,53 @@
 [1;31m
 Start test 1[0m
-> park KA-0-HH-9999 White
+> park KA-01-HH-9999 White
+*Sorry, a parking lot has not been created.
+> create 3
+#Created a parking lot with 3 spots.
+	> status
+Parking lot is empty.
+> park KA-01-HH-9999 White
 White car parked in spot 1.
-> park KA-0-HH-3672 Green
+> park KA-01-HH-3672 Green
 Green car parked in spot 2.
-> park KA-1-HH-9999 White
-White car parked in spot 3.
-> park KA-1-HH-3672 Green
-Green car parked in spot 4.
-> park KA-2-HH-9999 White
-White car parked in spot 5.
-> park KA-2-HH-3672 Green
-Green car parked in spot 6.
-> park KA-3-HH-9999 White
-White car parked in spot 7.
-> park KA-3-HH-3672 Green
-Green car parked in spot 8.
-> park KA-4-HH-9999 White
-White car parked in spot 9.
-> park KA-4-HH-3672 Green
-Green car parked in spot 10.
-> park KA-5-HH-9999 White
-White car parked in spot 11.
-> park KA-5-HH-3672 Green
-Green car parked in spot 12.
-> park KA-6-HH-9999 White
-White car parked in spot 13.
-> park KA-6-HH-3672 Green
-Green car parked in spot 14.
-> park KA-7-HH-9999 White
-White car parked in spot 15.
-> park KA-7-HH-3672 Green
-Green car parked in spot 16.
-> park KA-8-HH-9999 White
-White car parked in spot 17.
-> park KA-8-HH-3672 Green
-Green car parked in spot 18.
-> park KA-9-HH-9999 White
-White car parked in spot 19.
-> park KA-9-HH-3672 Green
-Green car parked in spot 20.
 > park Rs-P-N-21 Red
-Sorry, the parking lot is full.
+Red car parked in spot 3.
 
-> leave 1
-Spot 1 is free.
-> park Rs-P-N-21 Red
-Red car parked in spot 1.
+> leave 2
+Spot 2 is free.
+	> status
+1 KA-01-HH-9999 White
+3 Rs-P-N-21 Red
 > exit
 [1;31m
 Start test 2[0m
-> park KA-0-HH-9999 White
-White car parked in spot 1.
-> park KA-0-HH-3672 Green
-Green car parked in spot 2.
-> park KA-1-HH-9999 White
-White car parked in spot 3.
-> park KA-1-HH-3672 Green
-Green car parked in spot 4.
-> park KA-2-HH-9999 White
-White car parked in spot 5.
-> park KA-2-HH-3672 Green
-Green car parked in spot 6.
-> park KA-3-HH-9999 White
-White car parked in spot 7.
-> park KA-3-HH-3672 Green
-Green car parked in spot 8.
-> park KA-4-HH-9999 White
-White car parked in spot 9.
-> park KA-4-HH-3672 Green
-Green car parked in spot 10.
-> park KA-5-HH-9999 White
-White car parked in spot 11.
-> park KA-5-HH-3672 Green
-Green car parked in spot 12.
-> park KA-6-HH-9999 White
-White car parked in spot 13.
-> park KA-6-HH-3672 Green
-Green car parked in spot 14.
-> park KA-7-HH-9999 White
-White car parked in spot 15.
-> park KA-7-HH-3672 Green
-Green car parked in spot 16.
-> park KA-8-HH-9999 White
-White car parked in spot 17.
-> park KA-8-HH-3672 Green
-Green car parked in spot 18.
-> park KA-9-HH-9999 White
-White car parked in spot 19.
-> park KA-9-HH-3672 Green
-Green car parked in spot 20.
-> park Rs-P-N-21 Red
-Sorry, the parking lot is full.
-> park ABC Green
-Sorry, the parking lot is full.
-
-> leave 5
-Spot 5 is free.
+> park KA-01-HH-9999 White
+*Sorry, a parking lot has not been created.
 
 > leave 1
-Spot 1 is free.
-> leave 20
-Spot 20 is free.
-> park Rs-P-N-21 White
+*Sorry, a parking lot has not been created.
+	> status
+*Sorry, a parking lot has not been created.
+> exit
+[1;31m
+Start test 3[0m
+> create 3
+#Created a parking lot with 3 spots.
+> park KA-01-HH-9999 White
 White car parked in spot 1.
-> park Rs-P-N-22 Blue
-Blue car parked in spot 5.
-> park Rs-P-N-23 Red
-Red car parked in spot 20.
-> park A B
+> park KA-01-HH-9998 Red
+Red car parked in spot 2.
+	> status
+1 KA-01-HH-9999 White
+2 KA-01-HH-9998 Red
+> create 1
+#Created a parking lot with 1 spots.
+	> status
+Parking lot is empty.
+> park KA-01-HH-9999 Black
+Black car parked in spot 1.
+	> status
+1 KA-01-HH-9999 Black
+> park KA-01-HH-9998 Black
 Sorry, the parking lot is full.
 > exit
