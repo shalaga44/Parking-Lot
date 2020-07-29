@@ -1,22 +1,113 @@
 [1;31m
 Start test 1[0m
-> park KA-01-HH-1234 White
-White car parked in spot 2.
-[1;31m
-Start test 2[0m
+> park KA-0-HH-9999 White
+White car parked in spot 1.
+> park KA-0-HH-3672 Green
+Green car parked in spot 2.
+> park KA-1-HH-9999 White
+White car parked in spot 3.
+> park KA-1-HH-3672 Green
+Green car parked in spot 4.
+> park KA-2-HH-9999 White
+White car parked in spot 5.
+> park KA-2-HH-3672 Green
+Green car parked in spot 6.
+> park KA-3-HH-9999 White
+White car parked in spot 7.
+> park KA-3-HH-3672 Green
+Green car parked in spot 8.
+> park KA-4-HH-9999 White
+White car parked in spot 9.
+> park KA-4-HH-3672 Green
+Green car parked in spot 10.
+> park KA-5-HH-9999 White
+White car parked in spot 11.
+> park KA-5-HH-3672 Green
+Green car parked in spot 12.
+> park KA-6-HH-9999 White
+White car parked in spot 13.
+> park KA-6-HH-3672 Green
+Green car parked in spot 14.
+> park KA-7-HH-9999 White
+White car parked in spot 15.
+> park KA-7-HH-3672 Green
+Green car parked in spot 16.
+> park KA-8-HH-9999 White
+White car parked in spot 17.
+> park KA-8-HH-3672 Green
+Green car parked in spot 18.
+> park KA-9-HH-9999 White
+White car parked in spot 19.
+> park KA-9-HH-3672 Green
+Green car parked in spot 20.
+> park Rs-P-N-21 Red
+Sorry, the parking lot is full.
 
 > leave 1
 Spot 1 is free.
+> park Rs-P-N-21 Red
+Red car parked in spot 1.
+> exit
 [1;31m
-Start test 3[0m
+Start test 2[0m
+> park KA-0-HH-9999 White
+White car parked in spot 1.
+> park KA-0-HH-3672 Green
+Green car parked in spot 2.
+> park KA-1-HH-9999 White
+White car parked in spot 3.
+> park KA-1-HH-3672 Green
+Green car parked in spot 4.
+> park KA-2-HH-9999 White
+White car parked in spot 5.
+> park KA-2-HH-3672 Green
+Green car parked in spot 6.
+> park KA-3-HH-9999 White
+White car parked in spot 7.
+> park KA-3-HH-3672 Green
+Green car parked in spot 8.
+> park KA-4-HH-9999 White
+White car parked in spot 9.
+> park KA-4-HH-3672 Green
+Green car parked in spot 10.
+> park KA-5-HH-9999 White
+White car parked in spot 11.
+> park KA-5-HH-3672 Green
+Green car parked in spot 12.
+> park KA-6-HH-9999 White
+White car parked in spot 13.
+> park KA-6-HH-3672 Green
+Green car parked in spot 14.
+> park KA-7-HH-9999 White
+White car parked in spot 15.
+> park KA-7-HH-3672 Green
+Green car parked in spot 16.
+> park KA-8-HH-9999 White
+White car parked in spot 17.
+> park KA-8-HH-3672 Green
+Green car parked in spot 18.
+> park KA-9-HH-9999 White
+White car parked in spot 19.
+> park KA-9-HH-3672 Green
+Green car parked in spot 20.
+> park Rs-P-N-21 Red
+Sorry, the parking lot is full.
+> park ABC Green
+Sorry, the parking lot is full.
 
-> leave 2
-There is no car in spot 2.
-[1;31m
-Start test 4[0m
-> park KA-01-HH-1234 Red
-Red car parked in spot 2.
-[1;31m
-Start test 5[0m
-> park 1ABC234 Blue
-Blue car parked in spot 2.
+> leave 5
+Spot 5 is free.
+
+> leave 1
+Spot 1 is free.
+> leave 20
+Spot 20 is free.
+> park Rs-P-N-21 White
+White car parked in spot 1.
+> park Rs-P-N-22 Blue
+Blue car parked in spot 5.
+> park Rs-P-N-23 Red
+Red car parked in spot 20.
+> park A B
+Sorry, the parking lot is full.
+> exit

@@ -10,22 +10,20 @@ class Spots(val totalSpots: Int) {
         spotsList.add(Spot(0, Car(), false))
 
         (1..totalSpots).forEach {
-
             spotsList.add(createEmptySpot(it))
         }
-        spotsList[1] = Spot(1, Car(), false)
 
     }
 
     fun hasFreeSpot(): Boolean {
-        return occupiedSpotsCounter < totalSpots
+        return totalSpots - occupiedSpotsCounter > 0
     }
 
     fun parkCar(car: Car): Spot {
         val id = getFreeSpotId()
         val newParkingSpot = Spot(id, car, false)
         spotsList[id] = newParkingSpot
-        occupiedSpotsCounter--
+        occupiedSpotsCounter++
         return newParkingSpot
     }
 
@@ -43,7 +41,7 @@ class Spots(val totalSpots: Int) {
 
     fun freeSpot(spotID: Int): Int {
         spotsList[spotID] = createEmptySpot(spotID)
-        occupiedSpotsCounter++
+        occupiedSpotsCounter--
         return spotID
     }
 
@@ -60,10 +58,14 @@ data class Car(val carNumber: String = "", val color: String = "")
 sealed class Action
 class ParkAction(val car: Car) : Action()
 class LeaveAction(val spotID: Int) : Action()
+object ExitAction : Action()
+class WrongInputAction(val input: String) : Action()
 class ParkingLot {
+    var isOpen: Boolean = true
     private val parkFlag = "park"
     private val leaveFlag = "leave"
-    private var mySports = Spots(2)
+    private val exitFlag = "exit"
+    private var mySports = Spots(20)
 
     fun readUserInput() {
         val line = readLine()
@@ -72,13 +74,6 @@ class ParkingLot {
         else {
             val action = parseAction(line)
             doAction(action)
-        }
-    }
-
-    private fun doAction(action: Action) {
-        when (action) {
-            is ParkAction -> checkFreeSpotsThenPark(action.car)
-            is LeaveAction -> checkOccupiedSpotsThenLeave(action.spotID)
         }
     }
 
@@ -111,7 +106,7 @@ class ParkingLot {
     }
 
     private fun printParkError(car: Car) {
-        println("Can not park $car")
+        println("Sorry, the parking lot is full.")
     }
 
     private fun parkCar(car: Car) {
@@ -123,21 +118,31 @@ class ParkingLot {
         println("${spot.car.color} car parked in spot ${spot.id}.")
     }
 
-
-    private fun parseAction(line: String): Action {
-        val lineList = line.split(" ")
+    private fun parseAction(userInput: String): Action {
+        val lineList = userInput.split(" ")
 
         return when (lineList.first()) {
             parkFlag -> ParkAction(Car(lineList[1], lineList[2]))
             leaveFlag -> LeaveAction(lineList[1].toInt())
-            else -> ParkAction(Car("", ""))
+            exitFlag -> ExitAction
+            else -> WrongInputAction(userInput)
+        }
+    }
+
+
+    private fun doAction(action: Action) {
+        val action = when (action) {
+            is ParkAction -> checkFreeSpotsThenPark(action.car)
+            is LeaveAction -> checkOccupiedSpotsThenLeave(action.spotID)
+            is ExitAction -> isOpen = false
+            is WrongInputAction -> println("Input Error: ${action.input}")
         }
     }
 }
 
 fun main() {
     val parkingLot = ParkingLot()
-
-    parkingLot.readUserInput()
+    while (parkingLot.isOpen)
+        parkingLot.readUserInput()
 
 }
