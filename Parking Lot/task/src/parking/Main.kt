@@ -66,12 +66,13 @@ class ParkingLot {
     private var mySports = Spots(2)
 
     fun readUserInput() {
-        print("> ")
-        val line = readLine()!!.trim()
-        if (line.isBlank())
+        val line = readLine()
+        if (line.isNullOrBlank())
             return
-        val action = parseAction(line)
-        doAction(action)
+        else {
+            val action = parseAction(line)
+            doAction(action)
+        }
     }
 
     private fun doAction(action: Action) {
@@ -136,7 +137,7 @@ class ParkingLot {
 
 fun main() {
     val parkingLot = ParkingLot()
-    while (true) {
-        parkingLot.readUserInput()
-    }
+
+    parkingLot.readUserInput()
+
 }

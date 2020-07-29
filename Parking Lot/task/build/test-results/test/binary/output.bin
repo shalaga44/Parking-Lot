@@ -1,5 +1,22 @@
 [1;31m
 Start test 1[0m
-> > park KA-01-HH-1234 White
+> park KA-01-HH-1234 White
 White car parked in spot 2.
-> 
+[1;31m
+Start test 2[0m
+
+> leave 1
+Spot 1 is free.
+[1;31m
+Start test 3[0m
+
+> leave 2
+There is no car in spot 2.
+[1;31m
+Start test 4[0m
+> park KA-01-HH-1234 Red
+Red car parked in spot 2.
+[1;31m
+Start test 5[0m
+> park 1ABC234 Blue
+Blue car parked in spot 2.
