@@ -1,11 +1,11 @@
 package parking
 
-val errorFlag = -1
+const val errorFlag = -1
 
 class Spots {
-    var totalSpots: Int = errorFlag
-    var occupiedSpotsCounter = 0
-    var spotsList: MutableList<Spot> = mutableListOf()
+    private var totalSpots: Int = errorFlag
+    private var occupiedSpotsCounter = 0
+    private var spotsList: MutableList<Spot> = mutableListOf()
 
     fun createParkingLotOfSize(size: Int) {
         occupiedSpotsCounter = 0
@@ -123,7 +123,7 @@ class ParkingLot {
             if (mySports.hasFreeSpot())
                 parkCar(car)
             else
-                printParkError(car)
+                printParkError()
 
     }
 
@@ -135,7 +135,7 @@ class ParkingLot {
         return true
     }
 
-    private fun printParkError(car: Car) {
+    private fun printParkError() {
         println("Sorry, the parking lot is full.")
     }
 
@@ -163,7 +163,7 @@ class ParkingLot {
 
 
     private fun doAction(action: Action) {
-        val action = when (action) {
+        return when (action) {
             is ParkAction -> checkFreeSpotsThenPark(action.car)
             is LeaveAction -> checkOccupiedSpotsThenLeave(action.spotID)
             is ExitAction -> isOpen = false
