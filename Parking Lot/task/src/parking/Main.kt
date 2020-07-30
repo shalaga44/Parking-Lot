@@ -78,6 +78,7 @@ object ExitAction : Action()
 class WrongInputAction(val input: String) : Action()
 class CreateSpotsAction(val spots: Int) : Action()
 object StatusAction : Action()
+class RegByColorAction(val color: String) : Action()
 class ParkingLot {
     var isOpen: Boolean = true
     private val parkFlag = "park"
@@ -85,6 +86,7 @@ class ParkingLot {
     private val exitFlag = "exit"
     private val createFlag = "create"
     private val statusFlag = "status"
+    private val regByColorFlag = "reg_by_color"
     private var mySports = Spots()
 
     fun readUserInput() {
@@ -157,6 +159,7 @@ class ParkingLot {
             exitFlag -> ExitAction
             createFlag -> CreateSpotsAction(lineList[1].toInt())
             statusFlag -> StatusAction
+            regByColorFlag -> RegByColorAction(lineList[1])
             else -> WrongInputAction(userInput)
         }
     }
@@ -170,6 +173,42 @@ class ParkingLot {
             is WrongInputAction -> println("Input Error: ${action.input}")
             is CreateSpotsAction -> createParkingLot(action.spots)
             is StatusAction -> getParkingLotStatusThenPrint()
+            is RegByColorAction -> getRegNumberByColor(action.color)
+        }
+    }
+
+    private fun getRegNumberByColor(color: String) {
+        val occupiedSpots = mySports.getOccupiedSpots()
+        if (isParkingCreated())
+            if (occupiedSpots.isNotEmpty())
+                printRegNumberByColor(occupiedSpots, color)
+            else
+                printNotCarRegByColorFound(color)
+
+
+    }
+
+    private fun printNotCarRegByColorFound(color: String) {
+        println("No Cars with color $color were found.")
+    }
+
+    private fun printRegNumberByColor(occupiedSpots: List<Spot>, color: String) {
+        val filteredCars = occupiedSpots
+                .filter { it.car.color.toLowerCase() == color.toLowerCase() }
+        if (filteredCars.isNotEmpty())
+            printCarsRegInLine(filteredCars)
+        else
+            printNotCarRegByColorFound(color)
+    }
+
+    private fun printCarsRegInLine(filteredCars: List<Spot>) {
+        filteredCars.forEach {
+            print(it.car.carNumber)
+            if (it != filteredCars.last())
+                print(", ")
+            else
+                println()
+
         }
     }
 
