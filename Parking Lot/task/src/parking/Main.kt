@@ -80,6 +80,7 @@ class CreateSpotsAction(val spots: Int) : Action()
 object StatusAction : Action()
 class RegByColorAction(val color: String) : Action()
 class SpotByColorAction(val color: String) : Action()
+class SpotByRegAction(val carNumber: String) : Action()
 class ParkingLot {
     var isOpen: Boolean = true
     private val parkFlag = "park"
@@ -89,6 +90,7 @@ class ParkingLot {
     private val statusFlag = "status"
     private val regByColorFlag = "reg_by_color"
     private val spotByColorFlag = "spot_by_color"
+    private val spotByRegFlag = "spot_by_reg"
     private var mySports = Spots()
 
     fun readUserInput() {
@@ -163,6 +165,7 @@ class ParkingLot {
             statusFlag -> StatusAction
             regByColorFlag -> RegByColorAction(lineList[1])
             spotByColorFlag -> SpotByColorAction(lineList[1])
+            spotByRegFlag -> SpotByRegAction(lineList[1])
             else -> WrongInputAction(userInput)
         }
     }
@@ -178,7 +181,29 @@ class ParkingLot {
             is StatusAction -> getParkingLotStatusThenPrint()
             is RegByColorAction -> getRegNumberByColor(action.color)
             is SpotByColorAction -> getSpotByColor(action.color)
+            is SpotByRegAction -> getSpotByReg(action.carNumber)
         }
+    }
+
+    private fun getSpotByReg(carNumber: String) {
+        val occupiedSpots = mySports.getOccupiedSpots()
+        if (isParkingCreated())
+            if (occupiedSpots.isNotEmpty())
+                printSpotByReg(occupiedSpots, carNumber)
+            else
+                printNoCarByRegFound(carNumber)
+    }
+
+    private fun printSpotByReg(occupiedSpots: List<Spot>, carNumber: String) {
+        val filteredCars = occupiedSpots.filterByReg(carNumber)
+        if (filteredCars.isNotEmpty())
+            printCarsSpotInLine(filteredCars)
+        else
+            printNoCarByRegFound(carNumber)
+    }
+
+    private fun printNoCarByRegFound(carNumber: String) {
+        println("No cars with registration number $carNumber were found.")
     }
 
     private fun getSpotByColor(color: String) {
@@ -270,6 +295,8 @@ class ParkingLot {
 private fun List<Spot>.filterByColor(color: String): List<Spot> {
     return this.filter { it.car.color.toLowerCase() == color.toLowerCase() }
 
+}private fun List<Spot>.filterByReg(carNumber: String): List<Spot> {
+    return this.filter { it.car.carNumber.toLowerCase() == carNumber.toLowerCase() }
 }
 
 fun main() {

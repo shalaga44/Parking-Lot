@@ -1,53 +1,74 @@
 [1;31m
 Start test 1[0m
-> park KA-01-HH-9999 White
+> spot_by_color yellow
 *Sorry, a parking lot has not been created.
-> create 3
-#Created a parking lot with 3 spots.
-	> status
-Parking lot is empty.
+> create 4
+#Created a parking lot with 4 spots.
 > park KA-01-HH-9999 White
 White car parked in spot 1.
-> park KA-01-HH-3672 Green
-Green car parked in spot 2.
+> park KA-01-HH-3672 White
+White car parked in spot 2.
 > park Rs-P-N-21 Red
 Red car parked in spot 3.
-
-> leave 2
-Spot 2 is free.
-	> status
-1 KA-01-HH-9999 White
-3 Rs-P-N-21 Red
+> park Rs-P-N-22 Red
+Red car parked in spot 4.
+> reg_by_color GREEN
+$No Cars with color GREEN were found.
+> reg_by_color WHITE
+KA-01-HH-9999, KA-01-HH-3672
+> spot_by_color GREEN
+$No Cars with color GREEN were found.
+> spot_by_color red
+3, 4
+> spot_by_reg ABC
+0No cars with registration number ABC were found.
+> spot_by_reg KA-01-HH-3672
+2
+> spot_by_reg Rs-P-N-21
+3
 > exit
 [1;31m
 Start test 2[0m
-> park KA-01-HH-9999 White
+> spot_by_color yellow
 *Sorry, a parking lot has not been created.
-
-> leave 1
+> reg_by_color yellow
 *Sorry, a parking lot has not been created.
-	> status
+> spot_by_reg yellow
 *Sorry, a parking lot has not been created.
 > exit
 [1;31m
 Start test 3[0m
-> create 3
-#Created a parking lot with 3 spots.
-> park KA-01-HH-9999 White
-White car parked in spot 1.
-> park KA-01-HH-9998 Red
-Red car parked in spot 2.
-	> status
-1 KA-01-HH-9999 White
-2 KA-01-HH-9998 Red
-> create 1
-#Created a parking lot with 1 spots.
-	> status
-Parking lot is empty.
-> park KA-01-HH-9999 Black
-Black car parked in spot 1.
-	> status
-1 KA-01-HH-9999 Black
-> park KA-01-HH-9998 Black
-Sorry, the parking lot is full.
+> create 5
+#Created a parking lot with 5 spots.
+> park A AA
+AA car parked in spot 1.
+> park B BB
+BB car parked in spot 2.
+> park C BB
+BB car parked in spot 3.
+> park D AA
+AA car parked in spot 4.
+> park E AA
+AA car parked in spot 5.
+
+> leave 4
+Spot 4 is free.
+> reg_by_color aa
+A, E
+> reg_by_color bb
+B, C
+> reg_by_color zz
+!No Cars with color zz were found.
+> spot_by_color aa
+1, 5
+> spot_by_color bb
+2, 3
+> spot_by_color zz
+!No Cars with color zz were found.
+> spot_by_reg A
+1
+> spot_by_reg B
+2
+> spot_by_reg Z
+.No cars with registration number Z were found.
 > exit
