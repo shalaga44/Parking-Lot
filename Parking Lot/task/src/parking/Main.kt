@@ -79,6 +79,7 @@ class WrongInputAction(val input: String) : Action()
 class CreateSpotsAction(val spots: Int) : Action()
 object StatusAction : Action()
 class RegByColorAction(val color: String) : Action()
+class SpotByColorAction(val color: String) : Action()
 class ParkingLot {
     var isOpen: Boolean = true
     private val parkFlag = "park"
@@ -87,6 +88,7 @@ class ParkingLot {
     private val createFlag = "create"
     private val statusFlag = "status"
     private val regByColorFlag = "reg_by_color"
+    private val spotByColorFlag = "spot_by_color"
     private var mySports = Spots()
 
     fun readUserInput() {
@@ -160,6 +162,7 @@ class ParkingLot {
             createFlag -> CreateSpotsAction(lineList[1].toInt())
             statusFlag -> StatusAction
             regByColorFlag -> RegByColorAction(lineList[1])
+            spotByColorFlag -> SpotByColorAction(lineList[1])
             else -> WrongInputAction(userInput)
         }
     }
@@ -174,8 +177,37 @@ class ParkingLot {
             is CreateSpotsAction -> createParkingLot(action.spots)
             is StatusAction -> getParkingLotStatusThenPrint()
             is RegByColorAction -> getRegNumberByColor(action.color)
+            is SpotByColorAction -> getSpotByColor(action.color)
         }
     }
+
+    private fun getSpotByColor(color: String) {
+        val occupiedSpots = mySports.getOccupiedSpots()
+        if (isParkingCreated())
+            if (occupiedSpots.isNotEmpty())
+                printSpotByColor(occupiedSpots, color)
+            else
+                printNoCarByColorFound(color)
+    }
+
+    private fun printSpotByColor(occupiedSpots: List<Spot>, color: String) {
+        val filteredCars = occupiedSpots.filterByColor(color)
+        if (filteredCars.isNotEmpty())
+            printCarsSpotInLine(filteredCars)
+        else
+            printNoCarByColorFound(color)
+    }
+
+    private fun printCarsSpotInLine(filteredCars: List<Spot>) {
+        filteredCars.forEach {
+            print(it.id)
+            if (it != filteredCars.last())
+                print(", ")
+            else
+                println()
+        }
+    }
+
 
     private fun getRegNumberByColor(color: String) {
         val occupiedSpots = mySports.getOccupiedSpots()
@@ -183,22 +215,21 @@ class ParkingLot {
             if (occupiedSpots.isNotEmpty())
                 printRegNumberByColor(occupiedSpots, color)
             else
-                printNotCarRegByColorFound(color)
+                printNoCarByColorFound(color)
 
 
     }
 
-    private fun printNotCarRegByColorFound(color: String) {
+    private fun printNoCarByColorFound(color: String) {
         println("No Cars with color $color were found.")
     }
 
     private fun printRegNumberByColor(occupiedSpots: List<Spot>, color: String) {
-        val filteredCars = occupiedSpots
-                .filter { it.car.color.toLowerCase() == color.toLowerCase() }
+        val filteredCars = occupiedSpots.filterByColor(color)
         if (filteredCars.isNotEmpty())
             printCarsRegInLine(filteredCars)
         else
-            printNotCarRegByColorFound(color)
+            printNoCarByColorFound(color)
     }
 
     private fun printCarsRegInLine(filteredCars: List<Spot>) {
@@ -234,6 +265,11 @@ class ParkingLot {
 
 
     }
+}
+
+private fun List<Spot>.filterByColor(color: String): List<Spot> {
+    return this.filter { it.car.color.toLowerCase() == color.toLowerCase() }
+
 }
 
 fun main() {
